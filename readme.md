@@ -2,7 +2,7 @@
 
 > **Repositori del projecte**:
 > [https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git](https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git)
-> **Entorn objectiu**: Servidor Linux sense entorn gràfic (Ubuntu Server)
+> **Entorn objectiu**: Servidor Linux sense entorn gràfic on es pujen els archius i s'emmagatzema la web (Ubuntu Server) + Desktop amb Entorn Grafic per desenvolupadors (Ubuntu Desktop)
 > **Tecnologies**: Apache2, PHP, MariaDB/MySQL, Git
 
 ---
@@ -177,4 +177,5 @@ sudo chown -R www-data:www-data .
 * Alberto Trujillo, Oscar Bravo i Aleix Tomas
 
 ---
+
 
