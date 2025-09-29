@@ -1,18 +1,18 @@
-### 📘 Manual de Instalació del Projecte PHP – *Equip G5 ASIXc2B*
+# 📘 Manual de Instalació del Projecte PHP amb **NGINX** – *Equip G5 ASIXc2B*
 
 > **Repositori del projecte**:
 > [https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git](https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git)
-> **Entorn objectiu**: Servidor Linux sense entorn gràfic on es pujen els archius i s'emmagatzema la web (Ubuntu Server) + Desktop amb Entorn Grafic per desenvolupadors (Ubuntu Desktop)
-> **Tecnologies**: Apache2, PHP, MariaDB/MySQL, Git
+> **Entorn objectiu**: Servidor Ubuntu Server + Desktop Ubuntu per desenvolupadors
+> **Tecnologies**: **NGINX**, PHP-FPM, MariaDB/MySQL, Git
 
 ---
 
 ## 🧰 1. Requisits previs
 
-* Tenir accés SSH al servidor.
+* Accés SSH al servidor.
 * Usuari amb permisos `sudo`.
-* Paquets instal·lats: `apache2`, `php`, `mariadb-server`, `git`.
 * Connexió a internet.
+* Paquets: `nginx`, `php`, `php-fpm`, `php-mysql`, `mariadb-server`, `git`.
 
 ---
 
@@ -20,27 +20,27 @@
 
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install apache2 php php-mysql mariadb-server git unzip -y
+sudo apt install nginx php php-fpm php-mysql mariadb-server git unzip -y
 ```
 
 Activa i arrenca els serveis:
 
 ```bash
-sudo systemctl enable apache2 mariadb
-sudo systemctl start apache2 mariadb
+sudo systemctl enable nginx mariadb php8.1-fpm  # Ajusta la versió segons el sistema
+sudo systemctl start nginx mariadb php8.1-fpm
 ```
 
 ---
 
 ## 🗄️ 3. Configuració de la base de dades
 
-1. Accedeix al client de MariaDB:
+1. Accedeix a MariaDB:
 
 ```bash
 sudo mysql
 ```
 
-2. Executa les instruccions següents:
+2. Executa:
 
 ```sql
 CREATE DATABASE projecte_g5;
@@ -50,7 +50,7 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-3. Si hi ha un fitxer `.sql` amb la base de dades al repo, importa'l així:
+3. Si tens un `.sql` per importar:
 
 ```bash
 mysql -u g5user -p projecte_g5 < ruta/al/fitxer.sql
@@ -64,7 +64,7 @@ mysql -u g5user -p projecte_g5 < ruta/al/fitxer.sql
 
 ```bash
 cd /var/www/html
-sudo rm -rf *  # Només si és un servidor exclusiu pel projecte
+sudo rm -rf *  # Només si és exclusiu pel projecte
 ```
 
 2. Clona el repositori:
@@ -73,7 +73,7 @@ sudo rm -rf *  # Només si és un servidor exclusiu pel projecte
 sudo git clone https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git .
 ```
 
-3. Dona permisos correctes:
+3. Permisos correctes:
 
 ```bash
 sudo chown -R www-data:www-data /var/www/html
@@ -83,45 +83,58 @@ sudo find . -type f -exec chmod 644 {} \;
 
 ---
 
-## ⚙️ 5. Configuració d’Apache (virtualhost opcional)
+## ⚙️ 5. Configuració de NGINX
 
-Si només teniu aquest projecte al servidor, podeu usar el fitxer per defecte. Si voleu fer servir un **VirtualHost**:
-
-```bash
-sudo nano /etc/apache2/sites-available/projecte-g5.conf
-```
-
-Contingut bàsic:
-
-```apache
-<VirtualHost *:80>
-    ServerName projecte-g5.local
-    DocumentRoot /var/www/html
-
-    <Directory /var/www/html>
-        AllowOverride All
-        Require all granted
-    </Directory>
-
-    ErrorLog ${APACHE_LOG_DIR}/g5_error.log
-    CustomLog ${APACHE_LOG_DIR}/g5_access.log combined
-</VirtualHost>
-```
-
-Activa el site i reinicia Apache:
+1. Crea un fitxer nou de configuració per al projecte:
 
 ```bash
-sudo a2ensite projecte-g5.conf
-sudo a2dissite 000-default.conf
-sudo systemctl reload apache2
+sudo nano /etc/nginx/sites-available/projecte-g5
+```
+
+2. Exemple de configuració bàsica:
+
+```nginx
+server {
+    listen 80;
+    server_name projecte-g5.local;  # Canvia-ho pel teu domini o IP
+
+    root /var/www/html;
+    index index.php index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.1-fpm.sock;  # Comprova la versió
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    access_log /var/log/nginx/g5_access.log;
+    error_log /var/log/nginx/g5_error.log;
+}
+```
+
+> ⚠️ **Assegura't que `php8.1-fpm.sock` existeix. Pots canviar la versió a `php8.2-fpm.sock` si cal.**
+
+3. Habilita el site i reinicia NGINX:
+
+```bash
+sudo ln -s /etc/nginx/sites-available/projecte-g5 /etc/nginx/sites-enabled/
+sudo rm /etc/nginx/sites-enabled/default
+sudo nginx -t
+sudo systemctl reload nginx
 ```
 
 ---
 
 ## ⚠️ 6. Configuració de l’aplicació
 
-* Comproveu si hi ha un fitxer `config.php`, `.env` o similar.
-* Editeu-lo amb les dades de la base de dades que heu creat abans:
+Si existeix un fitxer `config.php`, `.env` o similar, edita’l i assegura’t que conté:
 
 ```php
 $host = "localhost";
@@ -134,32 +147,42 @@ $password = "g5password";
 
 ## ✅ 7. Comprovar que tot funciona
 
-1. Al navegador: accedeix a `http://IP_DEL_SERVIDOR` o al domini configurat.
+1. Obre el navegador i visita: `http://IP_DEL_SERVIDOR` o `http://projecte-g5.local` (si tens el DNS o `/etc/hosts` configurat).
 
-2. Si hi ha errors:
+2. Per depurar errors:
 
-   ```bash
-   sudo tail -f /var/log/apache2/error.log
-   ```
+```bash
+sudo tail -f /var/log/nginx/error.log
+sudo tail -f /var/log/php8.1-fpm.log
+```
 
-3. Si l'aplicació no carrega bé, comprova:
+3. Revisa que:
 
-   * La connexió a la base de dades
-   * Els permisos dels fitxers
-   * Si falta alguna extensió PHP (`php-mbstring`, `php-xml`, etc.)
+* El servei PHP-FPM està actiu.
+* La connexió a la base de dades funciona.
+* Les rutes de fitxers són correctes.
 
 ---
 
 ## 🛡️ 8. Consells finals per producció
 
-* No deixeu el `display_errors` activat en producció.
-* Si feu servir `.env`, afegiu-lo a `.gitignore`.
-* Activeu HTTPS si s'exposa el servidor a internet (Let’s Encrypt).
-* Feu còpies de seguretat periòdiques de la base de dades.
+* Desactiva `display_errors` a `php.ini`:
+
+  ```ini
+  display_errors = Off
+  ```
+* Si hi ha `.env`, afegeix-lo a `.gitignore`.
+* Activa HTTPS amb Let's Encrypt:
+
+  ```bash
+  sudo apt install certbot python3-certbot-nginx -y
+  sudo certbot --nginx
+  ```
+* Fes còpies de seguretat periòdiques.
 
 ---
 
-## 📎 Exemple de comandes ràpides per desplegar
+## 📎 Comandes ràpides per desplegament
 
 ```bash
 cd /var/www/html
@@ -177,5 +200,3 @@ sudo chown -R www-data:www-data .
 * Alberto Trujillo, Oscar Bravo i Aleix Tomas
 
 ---
-
-
