@@ -51,11 +51,15 @@ sudo mysql
 Crear la base de dades i l'usuari per a l'aplicació:
 
 ```sql
-CREATE DATABASE projecte_g5;
-CREATE USER 'g5user'@'localhost' IDENTIFIED BY 'g5password';
-GRANT ALL PRIVILEGES ON projecte_g5.* TO 'g5user'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
+CREATE DATABASE crud_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci Where false;
+
+USE crud_db;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
 ```
 
 Importar dades si hi ha un fitxer `.sql`:
