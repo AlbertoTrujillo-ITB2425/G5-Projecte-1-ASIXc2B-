@@ -1,5 +1,3 @@
-*** ADD.PHP ***
-
 <?php
 include 'db.php';
 
