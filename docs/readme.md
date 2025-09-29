@@ -1,46 +1,54 @@
-# 📘 Manual de Instalació del Projecte PHP amb **NGINX** – *Equip G5 ASIXc2B*
+# Manual d'Instal·lació del Projecte PHP amb NGINX
 
-> **Repositori del projecte**:
-> [https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git](https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git)
-> **Entorn objectiu**: Servidor Ubuntu Server + Desktop Ubuntu per desenvolupadors
-> **Tecnologies**: **NGINX**, PHP-FPM, MariaDB/MySQL, Git
+**Projecte:** Aplicació PHP – Equip G5 (ASIXc2B)
+**Repositori:** [https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git](https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git)
+**Entorn objectiu:** Servidor Ubuntu Server (sense entorn gràfic) i Ubuntu Desktop als clients
+**Tecnologies:** NGINX, PHP-FPM, MariaDB, Git
 
 ---
 
-## 🧰 1. Requisits previs
+## 1. Requisits previs
 
-* Accés SSH al servidor.
+* Accés al servidor via SSH.
 * Usuari amb permisos `sudo`.
 * Connexió a internet.
-* Paquets: `nginx`, `php`, `php-fpm`, `php-mysql`, `mariadb-server`, `git`.
+* Sistema operatiu: Ubuntu Server (última versió estable).
+* Paquets necessaris:
+
+  * Al servidor: `nginx`, `php`, `php-fpm`, `php-mysql`, `mariadb-server`, `git`.
+  * Als clients (opcional): navegador web, accés a la xarxa local o entrada DNS.
 
 ---
 
-## 🔄 2. Preparació del servidor
+## 2. Preparació del servidor
 
-```bash
+Actualitzar el sistema i instal·lar els paquets necessaris:
+
+```
 sudo apt update && sudo apt upgrade -y
 sudo apt install nginx php php-fpm php-mysql mariadb-server git unzip -y
 ```
 
-Activa i arrenca els serveis:
+Activar i iniciar els serveis principals:
 
-```bash
-sudo systemctl enable nginx mariadb php8.1-fpm  # Ajusta la versió segons el sistema
+```
+sudo systemctl enable nginx mariadb php8.1-fpm
 sudo systemctl start nginx mariadb php8.1-fpm
 ```
 
+*Nota: comprova que la versió de PHP instal·lada coincideix amb el nom del servei (ex: `php8.2-fpm`).*
+
 ---
 
-## 🗄️ 3. Configuració de la base de dades
+## 3. Configuració de la base de dades
 
-1. Accedeix a MariaDB:
+Accedir a MariaDB:
 
-```bash
+```
 sudo mysql
 ```
 
-2. Executa:
+Crear la base de dades i l'usuari per a l'aplicació:
 
 ```sql
 CREATE DATABASE projecte_g5;
@@ -50,32 +58,32 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-3. Si tens un `.sql` per importar:
+Importar dades si hi ha un fitxer `.sql`:
 
-```bash
-mysql -u g5user -p projecte_g5 < ruta/al/fitxer.sql
+```
+mysql -u g5user -p projecte_g5 < /ruta/al/fitxer.sql
 ```
 
 ---
 
-## 📁 4. Desplegament del projecte
+## 4. Desplegament del projecte
 
-1. Accedeix al directori web:
+Anar al directori web:
 
-```bash
+```
 cd /var/www/html
-sudo rm -rf *  # Només si és exclusiu pel projecte
+sudo rm -rf *
 ```
 
-2. Clona el repositori:
+Clonar el repositori:
 
-```bash
+```
 sudo git clone https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git .
 ```
 
-3. Permisos correctes:
+Assignar permisos correctes:
 
-```bash
+```
 sudo chown -R www-data:www-data /var/www/html
 sudo find . -type d -exec chmod 755 {} \;
 sudo find . -type f -exec chmod 644 {} \;
@@ -83,20 +91,20 @@ sudo find . -type f -exec chmod 644 {} \;
 
 ---
 
-## ⚙️ 5. Configuració de NGINX
+## 5. Configuració de NGINX
 
-1. Crea un fitxer nou de configuració per al projecte:
+Crear un fitxer de configuració per al projecte:
 
-```bash
+```
 sudo nano /etc/nginx/sites-available/projecte-g5
 ```
 
-2. Exemple de configuració bàsica:
+Exemple bàsic de configuració:
 
-```nginx
+```
 server {
     listen 80;
-    server_name projecte-g5.local;  # Canvia-ho pel teu domini o IP
+    server_name projecte-g5.local;
 
     root /var/www/html;
     index index.php index.html;
@@ -107,7 +115,7 @@ server {
 
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php8.1-fpm.sock;  # Comprova la versió
+        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
     }
 
     location ~ /\.ht {
@@ -119,11 +127,9 @@ server {
 }
 ```
 
-> ⚠️ **Assegura't que `php8.1-fpm.sock` existeix. Pots canviar la versió a `php8.2-fpm.sock` si cal.**
+Activar el lloc i reiniciar NGINX:
 
-3. Habilita el site i reinicia NGINX:
-
-```bash
+```
 sudo ln -s /etc/nginx/sites-available/projecte-g5 /etc/nginx/sites-enabled/
 sudo rm /etc/nginx/sites-enabled/default
 sudo nginx -t
@@ -132,9 +138,9 @@ sudo systemctl reload nginx
 
 ---
 
-## ⚠️ 6. Configuració de l’aplicació
+## 6. Configuració de l'aplicació
 
-Si existeix un fitxer `config.php`, `.env` o similar, edita’l i assegura’t que conté:
+Editar el fitxer `config.php` (o `.env`) i afegir-hi les dades de connexió a la base de dades:
 
 ```php
 $host = "localhost";
@@ -145,46 +151,73 @@ $password = "g5password";
 
 ---
 
-## ✅ 7. Comprovar que tot funciona
+## 7. Verificació del funcionament
 
-1. Obre el navegador i visita: `http://IP_DEL_SERVIDOR` o `http://projecte-g5.local` (si tens el DNS o `/etc/hosts` configurat).
+1. Des d’un navegador, accedir a:
+   `http://<IP_DEL_SERVIDOR>`
+   o bé `http://projecte-g5.local` (si s’ha configurat el DNS o `/etc/hosts`).
 
-2. Per depurar errors:
+2. Si cal revisar errors:
 
-```bash
+```
 sudo tail -f /var/log/nginx/error.log
 sudo tail -f /var/log/php8.1-fpm.log
 ```
 
-3. Revisa que:
+3. Comprovar que:
 
-* El servei PHP-FPM està actiu.
-* La connexió a la base de dades funciona.
-* Les rutes de fitxers són correctes.
-
----
-
-## 🛡️ 8. Consells finals per producció
-
-* Desactiva `display_errors` a `php.ini`:
-
-  ```ini
-  display_errors = Off
-  ```
-* Si hi ha `.env`, afegeix-lo a `.gitignore`.
-* Activa HTTPS amb Let's Encrypt:
-
-  ```bash
-  sudo apt install certbot python3-certbot-nginx -y
-  sudo certbot --nginx
-  ```
-* Fes còpies de seguretat periòdiques.
+   * PHP-FPM està actiu.
+   * La connexió a la base de dades funciona.
+   * Les rutes i permisos són correctes.
 
 ---
 
-## 📎 Comandes ràpides per desplegament
+## 8. Bones pràctiques per entorns de producció
 
-```bash
+* Desactivar la visualització d’errors en `php.ini`:
+
+```
+display_errors = Off
+```
+
+* Excloure fitxers sensibles (`.env`, backups, etc.) amb `.gitignore`.
+* Activar HTTPS amb Let’s Encrypt:
+
+```
+sudo apt install certbot python3-certbot-nginx -y
+sudo certbot --nginx
+```
+
+* Programar còpies de seguretat periòdiques (fitxers i base de dades).
+
+---
+
+## 9. Instal·lació en equips client (Ubuntu Desktop)
+
+1. Assegurar-se que l’equip client està a la mateixa xarxa que el servidor.
+2. Afegir el domini local al fitxer `/etc/hosts`:
+
+```
+sudo nano /etc/hosts
+```
+
+Afegir una línia com aquesta:
+
+```
+192.168.XX.XX    projecte-g5.local
+```
+
+3. Obrir un navegador i accedir a:
+
+```
+http://projecte-g5.local
+```
+
+---
+
+## 10. Comandes ràpides per al desplegament
+
+```
 cd /var/www/html
 sudo rm -rf *
 sudo git clone https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git .
@@ -193,11 +226,12 @@ sudo chown -R www-data:www-data .
 
 ---
 
-## 👥 Autors del projecte
+## 11. Autors del projecte
 
-* **Equip G5 – ASIXc2B**
-* Institut Tecnològic de Barcelona
-* Alberto Trujillo, Oscar Bravo i Aleix Tomas
+**Equip G5 – ASIXc2B**
+Institut Tecnològic de Barcelona
 
----
+* Alberto Trujillo
+* Òscar Bravo
+* Aleix Tomàs
 
