@@ -92,6 +92,7 @@ sudo chown -R www-data:www-data /var/www/html
 sudo find . -type d -exec chmod 755 {} \;
 sudo find . -type f -exec chmod 644 {} \;
 ```
+<img width="725" height="251" alt="image" src="https://github.com/user-attachments/assets/305b3701-769d-41bd-b90d-1d68e8476a87" />
 
 ---
 
