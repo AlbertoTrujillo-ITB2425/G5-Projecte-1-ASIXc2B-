@@ -1,4 +1,3 @@
-# 29/9/2025
 <?php
 $servername = "locahost";
 $username = "root";
