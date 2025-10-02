@@ -27,7 +27,7 @@
     </table>
 
     <h2>Afegir usuari</h2>
-    <form action="add.php" method="posts">
+    <form action="add.php" method="post"> // Abans hi havia un posts i no funcionaba
         Nom: <input type="text" name="name" required>
         Email: <input type="email" name="email" required>
         <button type="submit">Afegir</button>
