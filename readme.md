@@ -46,8 +46,19 @@ Aquest projecte és una aplicació web senzilla que permet gestionar usuaris mit
    ```
 
 3. Crea la base de dades db_crud i la taula `users` amb els camps `id`, `name`, `email`.
+   ```sql
+   CREATE DATABASE crud_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci Where false;
 
-4. Accedeix a `http://localhost/index.php` per començar.
+USE crud_db;
+```
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
+5. Accedeix a `http://localhost/index.php` per començar.
 
 ---
 
