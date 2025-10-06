@@ -1,10 +1,10 @@
 # Manual d'Instal·lació del Projecte PHP amb NGINX
 
-**Projecte:** Aplicació PHP – Equip G5 (ASIXc2B)
-**Repositori:** [https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git](https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git)
-**Entorn objectiu:** Servidor Ubuntu Server (sense entorn gràfic) i Ubuntu Desktop als clients
-**Tecnologies:** APACHE2, PHP-FPM, MariaDB, Git
-**Arquitectura** El projecte segueix una estructura **monolítica** amb una separació funcional per fitxers. Cada fitxer PHP representa una acció concreta dins de la aplicacio (Crear, Llegir, Actualitzar, Eliminar) usuaris.
+- **Projecte:** Aplicació PHP – Equip G5 (ASIXc2B)
+- **Repositori:** [https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git](https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git)
+- **Entorn objectiu:** Servidor Ubuntu Server (sense entorn gràfic) i Ubuntu Desktop als clients
+- **Tecnologies:** APACHE2, PHP-FPM, MariaDB, Git
+- **Arquitectura** El projecte segueix una estructura **monolítica** amb una separació funcional per fitxers. Cada fitxer PHP representa una acció concreta dins de la aplicacio (Crear, Llegir, Actualitzar, Eliminar) usuaris.
 
 ---
 
