@@ -44,8 +44,23 @@ Aquest projecte és una aplicació web senzilla que permet gestionar usuaris mit
    cd G5-Projecte-1-ASIXc2B-/
    sudo mv * /var/www/html 
    ```
+3. Afegir usuari root amb passwd root a mysql
+   ```bash
+   sudo mysql
+   ```
 
-3. Crea la base de dades db_crud i la taula `users` amb els camps `id`, `name`, `email`.
+   ```sql
+   CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';
+   GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+   FLUSH PRIVILEGES;
+   EXIT;
+   ```
+
+   ```sql
+   mysql -u root -p
+   ```
+   
+5. Crea la base de dades db_crud i la taula `users` amb els camps `id`, `name`, `email`.
    ```sql
    CREATE DATABASE crud_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci Where false;
 
@@ -58,7 +73,7 @@ Aquest projecte és una aplicació web senzilla que permet gestionar usuaris mit
    );
    ```
    
-5. Accedeix a `http://localhost/index.php` per començar.
+6. Accedeix a `http://localhost/index.php` per començar.
 
 ---
 
