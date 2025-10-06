@@ -44,7 +44,7 @@ Aquest projecte és una aplicació web senzilla que permet gestionar usuaris mit
    sudo mv * /var/www/html
    ```
 
-3. Crea la base de dades i la taula `users` amb els camps `id`, `name`, `email`.
+3. Crea la base de dades db_crud i la taula `users` amb els camps `id`, `name`, `email`.
 
 4. Accedeix a `http://localhost/index.php` per començar.
 
