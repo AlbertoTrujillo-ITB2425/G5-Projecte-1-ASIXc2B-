@@ -36,13 +36,13 @@ Aquest projecte és una aplicació web senzilla que permet gestionar usuaris mit
 
 1. Clona el repositori:
    ```bash
-   git clone https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git
+   sudo git clone https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git
    ```
 
 2. Mou els fitxers a `/var/www/html` si treballes amb Apache:
    ```bash
-   cd G5-Projecte-1-ASIXc2B
-   sudo mv  * /var/www/html
+   cd G5-Projecte-1-ASIXc2B-/
+   sudo mv * /var/www/html 
    ```
 
 3. Crea la base de dades db_crud i la taula `users` amb els camps `id`, `name`, `email`.
