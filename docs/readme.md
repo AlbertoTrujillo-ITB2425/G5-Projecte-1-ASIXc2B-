@@ -49,6 +49,12 @@ Accedir a MariaDB:
 ```
 sudo mysql -u root -p
 ```
+Cambiar passwd a usuari root
+
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
+FLUSH PRIVILEGES;
+```
 
 Crear la base de dades i l'usuari per a l'aplicació:
 
