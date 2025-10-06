@@ -122,10 +122,12 @@ $password = "root";
 $dbname = "crud_db";
 
 ```
+## 7.Correcio d'errors i commit final
+<img width="1079" height="240" alt="Captura de pantalla de 2025-10-06 15-46-35" src="https://github.com/user-attachments/assets/ef33b02a-b2c9-4e60-bd63-6244ee79c879" />
 
 ---
 
-## 7. Verificació del funcionament
+## 8. Verificació del funcionament
 
 1. index.php:
 <img width="670" height="244" alt="image" src="https://github.com/user-attachments/assets/03abebe9-a1b5-4bae-8d0d-348bd017ada4" />
