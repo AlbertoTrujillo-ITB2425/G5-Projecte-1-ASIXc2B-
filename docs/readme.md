@@ -129,14 +129,20 @@ $dbname = "crud_db";
 
 1. index.php:
 <img width="670" height="244" alt="image" src="https://github.com/user-attachments/assets/03abebe9-a1b5-4bae-8d0d-348bd017ada4" />
+
 ---
+
 2. add.php:
 <img width="670" height="244" alt="Captura de pantalla de 2025-10-06 15-54-38" src="https://github.com/user-attachments/assets/69e6bc9e-1705-4664-9b64-7e417a251a84" />
 <img width="670" height="271" alt="image" src="https://github.com/user-attachments/assets/58e7a107-4497-4044-a983-e440823577ad" />
+
 ---
+
 3. delete.php
 <img width="670" height="271" alt="image" src="https://github.com/user-attachments/assets/468a34ae-0199-476f-98de-9c6924fb446f" />
+
 ---
+
 4. edit.php
 <img width="670" height="146" alt="Captura de pantalla de 2025-10-06 15-56-49" src="https://github.com/user-attachments/assets/842dbd7f-2982-4c83-a1ef-e7199d72bdcd" />
 <img width="670" height="146" alt="image" src="https://github.com/user-attachments/assets/9720b4ce-7a4e-4241-93cb-c2bb7cfb340f" />
