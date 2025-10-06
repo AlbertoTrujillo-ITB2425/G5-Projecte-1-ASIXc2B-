@@ -155,13 +155,9 @@ sudo tail -f /var/log/nginx/error.log
 sudo tail -f /var/log/php8.1-fpm.log
 ```
 
-3. Comprovar que:
+## MYSQL EN FUNCIONAMENT: 
+<img width="677" height="622" alt="image" src="https://github.com/user-attachments/assets/ec7d4d28-ec7d-4ab0-9826-68ff676e33ec" />
 
-   * PHP-FPM està actiu.
-   * La connexió a la base de dades funciona.
-   * Les rutes i permisos són correctes.
-
----
 
 **Equip G5 – ASIXc2B**
 Institut Tecnològic de Barcelona
