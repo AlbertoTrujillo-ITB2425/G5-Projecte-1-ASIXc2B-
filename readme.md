@@ -1,4 +1,4 @@
-**G5 Projecte 1 – CRUD d’usuaris amb PHP i MySQL**
+**G5 Projecte 1 – Gestio d’usuaris amb PHP i MySQL**
 
 ---
 
