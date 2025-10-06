@@ -85,7 +85,7 @@ Clonar el repositori:
 
 ```
 sudo git clone https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git
-cd G5-Projecte-1-ASIXc2B
+cd G5-Projecte-1-ASIXc2B-/
 sudo mv * /var/www/html 
 ```
 
