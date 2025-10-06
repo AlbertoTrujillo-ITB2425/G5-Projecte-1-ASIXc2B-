@@ -27,14 +27,15 @@ Actualitzar el sistema i instal·lar els paquets necessaris:
 
 ```
 sudo apt update && sudo apt upgrade -y
-sudo apt install nginx php php-fpm php-mysql mariadb-server git unzip -y
+sudo apt install apache2 php libapache2-mod-php php-mysql mariadb-server git unzip -y
+
 ```
 
 Activar i iniciar els serveis principals:
 
 ```
-sudo systemctl enable nginx mariadb php8.1-fpm
-sudo systemctl start nginx mariadb php8.1-fpm
+sudo systemctl enable apache2 mariadb php8.1-fpm
+sudo systemctl start apache2 mariadb php8.1-fpm
 ```
 
 *Nota: comprova que la versió de PHP instal·lada coincideix amb el nom del servei (ex: `php8.2-fpm`).*
@@ -46,7 +47,7 @@ sudo systemctl start nginx mariadb php8.1-fpm
 Accedir a MariaDB:
 
 ```
-sudo mysql
+sudo mysql -u root -p
 ```
 
 Crear la base de dades i l'usuari per a l'aplicació:
