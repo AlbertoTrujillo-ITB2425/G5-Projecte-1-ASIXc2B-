@@ -3,7 +3,7 @@
 **Projecte:** Aplicació PHP – Equip G5 (ASIXc2B)
 **Repositori:** [https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git](https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git)
 **Entorn objectiu:** Servidor Ubuntu Server (sense entorn gràfic) i Ubuntu Desktop als clients
-**Tecnologies:** NGINX, PHP-FPM, MariaDB, Git
+**Tecnologies:** APACHE2, PHP-FPM, MariaDB, Git
 
 ---
 
@@ -62,12 +62,6 @@ CREATE TABLE users (
 );
 ```
 
-Importar dades si hi ha un fitxer `.sql`:
-
-```
-mysql -u g5user -p projecte_g5 < /ruta/al/fitxer.sql
-```
-
 ---
 
 ## 4. Desplegament del projecte
@@ -96,7 +90,7 @@ sudo find . -type f -exec chmod 644 {} \;
 
 ---
 
-## 5. Configuració de NGINX
+## 5. Configuració de APACHE
 
 Crear un fitxer de configuració per al projecte:
 
@@ -107,62 +101,49 @@ sudo nano /etc/nginx/sites-available/projecte-g5
 Exemple bàsic de configuració:
 
 ```
-server {
-    listen 80;
-    server_name projecte-g5.local;
-
-    root /var/www/html;
-    index index.php index.html;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-
-    location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php8.1-fpm.sock;
-    }
-
-    location ~ /\.ht {
-        deny all;
-    }
-
-    access_log /var/log/nginx/g5_access.log;
-    error_log /var/log/nginx/g5_error.log;
-}
-```
-
-Activar el lloc i reiniciar NGINX:
-
-```
-sudo ln -s /etc/nginx/sites-available/projecte-g5 /etc/nginx/sites-enabled/
-sudo rm /etc/nginx/sites-enabled/default
-sudo nginx -t
-sudo systemctl reload nginx
-```
-
+<VirtualHost *:80>
+    DocumentRoot /var/www/html
+    <Directory /var/www/html>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
 ---
 
 ## 6. Configuració de l'aplicació
 
-Editar el fitxer `config.php` (o `.env`) i afegir-hi les dades de connexió a la base de dades:
+Editar el fitxer `db.php` i afegir-hi les dades de connexió a la base de dades:
 
 ```php
-$host = "localhost";
-$dbname = "projecte_g5";
-$user = "g5user";
-$password = "g5password";
+$servername = "locahost";
+$username = "root";
+$password = "root";
+$dbname = "crud_db";
+
 ```
 
 ---
 
 ## 7. Verificació del funcionament
 
-1. Des d’un navegador, accedir a:
-   `http://<IP_DEL_SERVIDOR>`
-   o bé `http://projecte-g5.local` (si s’ha configurat el DNS o `/etc/hosts`).
+1. index.php:
+<img width="670" height="244" alt="image" src="https://github.com/user-attachments/assets/03abebe9-a1b5-4bae-8d0d-348bd017ada4" />
 
-2. Si cal revisar errors:
+2. add.php:
+<img width="670" height="244" alt="Captura de pantalla de 2025-10-06 15-54-38" src="https://github.com/user-attachments/assets/69e6bc9e-1705-4664-9b64-7e417a251a84" />
+<img width="670" height="271" alt="image" src="https://github.com/user-attachments/assets/58e7a107-4497-4044-a983-e440823577ad" />
+
+3. delete.php
+<img width="670" height="271" alt="image" src="https://github.com/user-attachments/assets/468a34ae-0199-476f-98de-9c6924fb446f" />
+
+4. edit.php
+<img width="670" height="146" alt="Captura de pantalla de 2025-10-06 15-56-49" src="https://github.com/user-attachments/assets/842dbd7f-2982-4c83-a1ef-e7199d72bdcd" />
+<img width="670" height="146" alt="image" src="https://github.com/user-attachments/assets/9720b4ce-7a4e-4241-93cb-c2bb7cfb340f" />
+
+
+
+
 
 ```
 sudo tail -f /var/log/nginx/error.log
@@ -176,62 +157,6 @@ sudo tail -f /var/log/php8.1-fpm.log
    * Les rutes i permisos són correctes.
 
 ---
-
-## 8. Bones pràctiques per entorns de producció
-
-* Desactivar la visualització d’errors en `php.ini`:
-
-```
-display_errors = Off
-```
-
-* Excloure fitxers sensibles (`.env`, backups, etc.) amb `.gitignore`.
-* Activar HTTPS amb Let’s Encrypt:
-
-```
-sudo apt install certbot python3-certbot-nginx -y
-sudo certbot --nginx
-```
-
-* Programar còpies de seguretat periòdiques (fitxers i base de dades).
-
----
-
-## 9. Instal·lació en equips client (Ubuntu Desktop)
-
-1. Assegurar-se que l’equip client està a la mateixa xarxa que el servidor.
-2. Afegir el domini local al fitxer `/etc/hosts`:
-
-```
-sudo nano /etc/hosts
-```
-
-Afegir una línia com aquesta:
-
-```
-192.168.XX.XX    projecte-g5.local
-```
-
-3. Obrir un navegador i accedir a:
-
-```
-http://projecte-g5.local
-```
-
----
-
-## 10. Comandes ràpides per al desplegament
-
-```
-cd /var/www/html
-sudo rm -rf *
-sudo git clone https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git .
-sudo chown -R www-data:www-data .
-```
-
----
-
-## 11. Autors del projecte
 
 **Equip G5 – ASIXc2B**
 Institut Tecnològic de Barcelona
