@@ -5,6 +5,8 @@
 **Entorn objectiu:** Servidor Ubuntu Server (sense entorn gràfic) i Ubuntu Desktop als clients
 **Tecnologies:** APACHE2, PHP-FPM, MariaDB, Git
 
+**Arquitectura** El projecte segueix una estructura monolítica amb una separació funcional per fitxers. Cada fitxer PHP representa una acció concreta dins de la aplicacio (Crear, Llegir, Actualitzar, Eliminar) usuaris.
+
 ---
 
 ## 1. Requisits previs
