@@ -39,6 +39,10 @@ Aquest projecte és una aplicació web senzilla que permet gestionar usuaris mit
    sudo apt update && sudo apt upgrade -y
    sudo apt install apache2 php libapache2-mod-php php-mysql mariadb-server git unzip -y
    ```
+   ```bash
+   sudo systemctl enable apache2 mariadb php8.1-fpm
+   sudo systemctl start apache2 mariadb php8.1-fpm
+   ```
    
 2. Clona el repositori:
    ```bash
