@@ -117,6 +117,7 @@ Exemple bàsic de configuració:
         Require all granted
     </Directory>
 </VirtualHost>
+```
 ---
 
 ## 6. Configuració de l'aplicació
@@ -125,9 +126,9 @@ Editar el fitxer `db.php` i afegir-hi les dades de connexió a la base de dades:
 
 ```php
 $servername = "locahost";
-$username = "root";
-$password = "root";
-$dbname = "crud_db";
+$username = "root"; //Aqui l'usuari que te privilegis per modificar la base de dades 
+$password = "root"; //La contrasenya corresponent
+$dbname = "crud_db"; //Nom de la base de dades si es diu diferent modifica-ho
 
 ```
 ## 7.Correcio d'errors i commit final
