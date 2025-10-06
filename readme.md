@@ -34,17 +34,24 @@ Aquest projecte és una aplicació web senzilla que permet gestionar usuaris mit
 
 ## Com executar el projecte
 
-1. Clona el repositori:
+1. Instalar i activar eines necesaries:
+   ```bash
+   sudo apt update && sudo apt upgrade -y
+   sudo apt install apache2 php libapache2-mod-php php-mysql mariadb-server git unzip -y
+   ```
+   
+2. Clona el repositori:
    ```bash
    sudo git clone https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git
    ```
 
-2. Mou els fitxers a `/var/www/html` si treballes amb Apache:
+3. Mou els fitxers al directori web `/var/www/html`:
    ```bash
    cd G5-Projecte-1-ASIXc2B-/
    sudo mv * /var/www/html 
    ```
-3. Afegir usuari root amb passwd root a mysql
+   
+4. Afegir usuari root amb passwd root a mysql
    ```bash
    sudo mysql
    ```
