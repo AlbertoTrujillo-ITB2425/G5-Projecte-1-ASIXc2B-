@@ -11,6 +11,9 @@
 - Oscar Bravo: Servidor base de dades 
 - Aleix Tomas: Servidor Web fa un clone del contingut que te el git 
 
+## Estructura del projecte 
+<img width="480" height="270" alt="image" src="https://github.com/user-attachments/assets/0d0c9211-1cad-47f9-a595-43d059daaa4d" />
+
 ---
 
 ## 1. Requisits previs
