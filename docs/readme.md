@@ -6,6 +6,11 @@
 - **Tecnologies:** APACHE2, PHP-FPM, MariaDB, Git
 - **Arquitectura:** El projecte segueix una estructura **monolítica** amb una separació funcional per fitxers. Cada fitxer PHP representa una acció concreta dins de la aplicacio (Crear, Llegir, Actualitzar, Eliminar) usuaris.
 
+## Distribucio Servers:
+- Alberto Trujillo: Client amb entorn grafic amb visual studio per desenvolupar el codi php i pujar al git
+- Oscar Bravo: Servidor base de dades 
+- Aleix Tomas: Servidor Web fa un clone del contingut que te el git 
+
 ---
 
 ## 1. Requisits previs
