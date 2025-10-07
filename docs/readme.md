@@ -80,6 +80,7 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL
 );
 ```
+<img width="716" height="359" alt="image" src="https://github.com/user-attachments/assets/c8c30c9b-e249-472b-9f1f-ce6c849e7a89" />
 
 ---
 
