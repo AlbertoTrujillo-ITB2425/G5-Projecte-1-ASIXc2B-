@@ -40,7 +40,7 @@ sudo apt install apache2 php libapache2-mod-php php-mysql mariadb-server git unz
 ```
 <img width="865" height="204" alt="Captura de pantalla de 2025-10-07 15-51-32" src="https://github.com/user-attachments/assets/672c0a22-5c0f-476b-880a-6fa307c151b7" />
 
-```
+
 
 Activar i iniciar els serveis principals:
 
