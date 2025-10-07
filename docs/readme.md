@@ -51,6 +51,8 @@ sudo systemctl start apache2 mariadb php8.1-fpm
 
 *Nota: comprova que la versió de PHP instal·lada coincideix amb el nom del servei (ex: `php8.2-fpm`).*
 
+<img width="1160" height="179" alt="image" src="https://github.com/user-attachments/assets/0b97a5da-7ded-42b6-9368-9c14689d73d7" />
+
 ---
 
 ## 3. Configuració de la base de dades
