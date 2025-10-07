@@ -131,6 +131,8 @@ Exemple bàsic de configuració:
     </Directory>
 </VirtualHost>
 ```
+<img width="861" height="383" alt="image" src="https://github.com/user-attachments/assets/705bdd53-d50b-4ee2-9b45-cd6f36ab193c" />
+
 ---
 
 ## 6. Configuració de l'aplicació
