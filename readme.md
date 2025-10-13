@@ -1,4 +1,4 @@
-# 👤 G5 Projecte 1 – Gestió d’usuaris amb PHP i MySQL
+# G5 Projecte 1 – Gestió d’usuaris amb PHP i MySQL
 
 ## Què és aquest projecte?
 
