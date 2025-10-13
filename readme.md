@@ -1,96 +1,87 @@
-**G5 Projecte 1 – Gestio d’usuaris amb PHP i MySQL**
+# 👤 G5 Projecte 1 – Gestió d’usuaris amb PHP i MySQL
+
+## Què és aquest projecte?
+
+És una web molt senzilla per **gestionar usuaris**: pots crear, veure, editar i esborrar usuaris des d’una pàgina web. Utilitza **PHP**, **MySQL** i **HTML**. Està pensada per funcionar en un servidor Ubuntu amb Apache.
 
 ---
 
-## 📝 Descripció
-
-Aquest projecte és una aplicació web senzilla que permet gestionar usuaris mitjançant operacions CRUD (Crear, Llegir, Actualitzar, Eliminar). Està desenvolupat amb PHP, MySQL i HTML, i pensat per ser desplegat en un servidor Apache.
-
----
-
-## 🧱 Estructura del projecte
+## 📁 Arxius del projecte
 
 ```
-├── index.php       → Llista d’usuaris
-├── add.php         → Formulari per afegir usuaris
+├── index.php       → Llista de tots els usuaris
+├── add.php         → Formulari per afegir nous usuaris
 ├── edit.php        → Formulari per editar usuaris
-├── delete.php      → Eliminació d’usuaris
-├── db.php          → Connexió amb la base de dades
-├── docs/           → Documentació tècnica i funcional
-└── readme.md       → Fitxer de presentació del projecte
+├── delete.php      → Esborra un usuari
+├── db.php          → Connexió a la base de dades
+├── docs/           → Documentació i ajuda
+└── readme.md       → Aquest fitxer
 ```
 
 ---
 
-## ⚙️ Tecnologies utilitzades
+## 🛠️ Requisits
 
-- PHP 8
-- MySQL/MariaDB
-- HTML5
+- Un servidor Ubuntu
 - Apache2
-- Ubuntu Server
+- PHP
+- MySQL o MariaDB
+- Git
 
 ---
 
-## Com executar el projecte
+## 🚀 Com instal·lar i posar-ho en marxa
 
-1. Instalar i activar eines necesaries:
+1. **Instal·la els programes necessaris:**
    ```bash
-   sudo apt update && sudo apt upgrade -y
+   sudo apt update
    sudo apt install apache2 php libapache2-mod-php php-mysql mariadb-server git unzip -y
-   ```
-   ```bash
-   sudo systemctl enable apache2 mariadb php8.1-fpm
-   sudo systemctl start apache2 mariadb php8.1-fpm
-   ```
-   
-2. Clona el repositori:
-   ```bash
-   sudo git clone https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git
+   sudo systemctl enable apache2 mariadb
+   sudo systemctl start apache2 mariadb
    ```
 
-3. Mou els fitxers al directori web `/var/www/html`:
+2. **Descarrega el projecte:**
    ```bash
-   cd G5-Projecte-1-ASIXc2B-/
-   sudo mv * /var/www/html 
+   git clone https://github.com/AlbertoTrujillo-ITB2425/G5-Projecte-1-ASIXc2B-.git
    ```
-   
-4. Afegir usuari root amb passwd root a mysql
+
+3. **Copia els arxius a la carpeta web:**
+   ```bash
+   cd G5-Projecte-1-ASIXc2B-
+   sudo mv * /var/www/html/
+   ```
+
+4. **Crea la base de dades i la taula:**
+
+   Entra a MySQL:
    ```bash
    sudo mysql
    ```
 
+   Escriu això a la consola de MySQL:
    ```sql
-   CREATE USER 'root'@'localhost' IDENTIFIED BY 'root';
-   GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
-   FLUSH PRIVILEGES;
+   CREATE DATABASE crud_db;
+   USE crud_db;
+   CREATE TABLE users (
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     name VARCHAR(100) NOT NULL,
+     email VARCHAR(100) NOT NULL
+   );
    EXIT;
    ```
 
-   ```sql
-   mysql -u root -p
-   ```
-   
-5. Crea la base de dades db_crud i la taula `users` amb els camps `id`, `name`, `email`.
-   ```sql
-   CREATE DATABASE crud_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci Where false;
-
-   USE crud_db;
-   
-   CREATE TABLE users (
-       id INT AUTO_INCREMENT PRIMARY KEY,
-       name VARCHAR(100) NOT NULL,
-       email VARCHAR(100) NOT NULL
-   );
-   ```
-   
-6. Accedeix a `http://localhost/index.php` per començar.
+5. **Obre la web al navegador:**  
+   Ves a: [http://localhost/index.php](http://localhost/index.php)
 
 ---
 
-## 📂 Documentació
+## ℹ️ Més informació
 
-Consulta la carpeta `docs/` per veure l’arquitectura desplegada, les decisions tècniques i les instruccions detallades.
+- Consulta la carpeta [`docs/`](./docs) si necessites ajuda o vols saber com està fet.
 
 ---
 
+## 📝 Notes
+
+- Si tens algun error, revisa que tens tots els programes instal·lats i la base de dades creada.
+- Per qualsevol dubte, pregunta al professor o obre una “issue” a GitHub.
